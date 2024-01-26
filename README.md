@@ -76,6 +76,27 @@ Once you have done this, you can open the Jupyter notebook OAuthTests.ipynb
 
 > Note: you should be able get data from the incident table in ServiceNow. 
 
+# Building a demo SPFx Web Part to consume ServiceNow API
+
+## Create a new SPFx
+One has been created in this repo so you can skip this step. but if you want to start from scratch, follow the steps [here](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part)
+
+## Build and Deploy your SPFx Web Part 
+
+```
+m365 login
+$siteUrl = "https://{tenant}.sharepoint.com/sites/ServiceNowDemo"
+.\Deploy-Package.ps1 -siteUrl $siteUrl
+```
+> Note: Add a app catalog if one doesn't exist
+```
+m365 spo site appcatalog add --siteUrl $siteUrl
+``` 
+
+## Add code to call ServiceNow API
+
+
+
 # VS Code Extensions
 - Jupyter
 - Python extension for Visual Studio Code
