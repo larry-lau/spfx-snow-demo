@@ -10,23 +10,27 @@ This repo contains instructions on how to consume ServiceNow Table API secured b
 - M365 Global Administrator or Application Administrator
 - ServiceNow Admin
 
-# Register Microsoft Entra App
+# Microsoft Entra Setup
+## Register Microsoft Entra App
 Steps:
 1. Open PowerShell Core > pwsh
 2. Sign in to Azure by run az login
-3. Run .\Register-App.ps1 -appName "ServiceNow API for SPFx"
-4. Inspect .env and keep it safe
-5. You will need this info in the next step
+3. Run 
+    ```
+    .\Register-App.ps1 -appName "ServiceNow API for SPFx"
+    ```
+4. Inspect .env and understand it contain credential that you must protect
+5. You will need this info .env in the next steps
 
 > Important Note: accessTokenAcceptedVersion must be set to null (default to v1) since ServiceNow doesn't seem to work with v2 as of 2024-01-26 in Vancouver release.
 
-# ServiceNow
+# ServiceNow Setup
 ## Configure an OIDC Provider Configuration in ServiceNow
 1. Navigate to https://{instance}.service-now.com/oidc_provider_configuration_list.do
 2. Click New and Fill out the following fields:
-    - OIDC Provider: Microsoft Entra OIDC v1
-    - OIDC Metadata URL: https://login.microsoftonline.com/{tenantId}/.well-known/openid-configuration
-    - User Claim: upn
+    - **OIDC Provider**: Microsoft Entra OIDC v1
+    - **OIDC Metadata URL**: https://login.microsoftonline.com/{tenantId}/.well-known/openid-configuration
+    - **User Claim**: upn
 
 > Important Note: OIDC Metadata URL must use the v1 endpoint. 
 
@@ -36,17 +40,27 @@ Steps:
 2. Navigate to System OAuth > OAuth application
 3. Click New and select "Configure an OIDC provider to verify ID tokens"
 4. Fill out the following fields
-- Name: ServiceNow API for SPFx
-- Client ID: <Use Audience value in .env>
-- Client Secret: <See .env>
-- OAuth OIDC Provider Configuration: Microsoft Entra OIDC v1 <Created in previous step>
-- Comments: This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)
+- **Name**: ServiceNow API for SPFx
+- **Client ID**: <Use Audience value in .env>
+- **Client Secret**: <See .env>
+- **OAuth OIDC Provider Configuration**: Microsoft Entra OIDC v1 <Created in previous step>
+- **Comments**: This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)
 - Under User Provisioning Tab
-    - Automatically provision users: Checked
-    - ID Token Datasource: Azure AD Example
-    - User roles applied to provisioned users: user, sn_incident_read, sn_incident_write
+    - **Automatically provision users**: Checked
+    - **ID Token Datasource**: Azure AD Example
+    - **User roles applied to provisioned users**: user, sn_incident_read, sn_incident_write
 
 > Important Note: Client ID must match the aud in jwt token 
+
+## Enable CORS Rule 
+Since SPFx components run in browser in the sharepoint.com domain and ServiceNow API endpoint is different domain service-now.com, by default browsers will not allow SPFx components to make REST call to other domain unless the endpoint specifically allows Cross-Origin Resource Sharing (CORS). Follow these step to configure a CORS Rules to allow call from *.sharepoint.com. Feel free adjust the domain if you don't want any wildcard subdomain of sharepoint.com to call your ServiceNow instance. 
+
+1. Navigate to https://{instance}.service-now.com/sys_cors_rule.do
+2. Click New and fill out the following fields:
+ - **Name**: Allow SPO on Table APIs
+ - **REST API**: Table API [now/table]
+ - **Domain**: https://*.sharepoint.com
+ - **HTTP Methods**: GET, POST
 
 # Setting up local Jupyter to test out integration
 You can do local Python development on Windows using VS Code. 
@@ -60,7 +74,8 @@ python -m venv .venv
 ```
 Once you have done this, you can open the Jupyter notebook OAuthTests.ipynb 
 
-# VS Code Extensions
-Jupyter
-Python extension for Visual Studio Code
+> Note: you should be able get data from the incident table in ServiceNow. 
 
+# VS Code Extensions
+- Jupyter
+- Python extension for Visual Studio Code
