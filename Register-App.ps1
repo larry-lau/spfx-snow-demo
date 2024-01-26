@@ -9,6 +9,7 @@ $tenantId = $(az account show --query=[tenantId] -o tsv)
 
 Write-Host "Registering app [$AppName] in Microsoft Entra..."
 $appId = $(az ad app create --display-name $AppName --required-resource-accesses resource-accesses.json --query "appId" -o tsv)
+if (!$appId) { throw "Failed to register app" }
 
 $identifierUri = "api://$appId"
 Write-Host "Updating app identifier-uris to [$identifierUri]..."
@@ -17,7 +18,7 @@ az ad app update --id $appId --sign-in-audience AzureADMyOrg
 # Update permission scope
 $apiScopeId = [guid]::NewGuid().Guid
 $apiScopeJson = @{
-    requestedAccessTokenVersion = 2
+    requestedAccessTokenVersion = $null
     oauth2PermissionScopes      = @(
         @{
             adminConsentDescription = "Access as user"
