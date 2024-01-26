@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "incidents-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/incidents/IncidentsWebPart.js",
+          "manifest": "./src/webparts/incidents/IncidentsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "IncidentsWebPartStrings": "lib/webparts/incidents/loc/{locale}.js"
+  }
+}

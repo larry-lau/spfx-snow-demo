@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spfx-snow-demo-client-side-solution",
+    "id": "b089aa45-dae5-41be-8afb-7844ae46daae",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "spfx-snow-demo description"
+      },
+      "longDescription": {
+        "default": "spfx-snow-demo description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "spfx-snow-demo Feature",
+        "description": "The feature that activates elements of the spfx-snow-demo solution.",
+        "id": "0b69bcd5-1cb6-464f-a13e-9ef76764c57d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/spfx-snow-demo.sppkg"
+  }
+}
