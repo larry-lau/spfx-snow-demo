@@ -1,6 +1,6 @@
 [CmdletBinding()]
 Param (
-    [string] $siteUrl = "https://habdev.sharepoint.com/sites/ServiceNowDemo",
+    [string] $siteUrl = "https://habdev.sharepoint.com/sites/SNowDemo",
     [string] $BuildNumber = "1.0.0.0",
     [switch] $uninstall,
     [switch] $skipBuild

@@ -2,9 +2,10 @@
 This repo contains instructions on how to consume ServiceNow Table API secured by Microsoft Entra from a SPFx Component running in SharePoint Online/Microsoft 365 without using an integration account or intermediate layer. The same user identity flow from SPO to ServiceNow without impersonation. This is possible because ServiceNow can be configured to be OAuth Resource using external Authorization Server (Microsoft Entra). SPFx framework already support calling WebApi secured by Microsoft Entra. That is not new and is well documented. This repo will highlight the part that trip most people off in the OAuth configuration in ServiceNow. 
 
 # Prerequisites
-- Azure CLI
-- Microsoft 365 tenant
+- Microsoft 365 Tenant
 - ServiceNow Developer Instance
+- Azure CLI
+- M365 CLI
 
 # Permissions
 - M365 Global Administrator or Application Administrator
@@ -85,7 +86,7 @@ One has been created in this repo so you can skip this step. but if you want to 
 
 ```
 m365 login
-$siteUrl = "https://{tenant}.sharepoint.com/sites/ServiceNowDemo"
+$siteUrl = "https://{tenant}.sharepoint.com/sites/SNowDemo"
 .\Deploy-Package.ps1 -siteUrl $siteUrl
 ```
 > Note: Add a app catalog if one doesn't exist
@@ -93,9 +94,46 @@ $siteUrl = "https://{tenant}.sharepoint.com/sites/ServiceNowDemo"
 m365 spo site appcatalog add --siteUrl $siteUrl
 ``` 
 
+## Approve permission requests
+For this web part to call ServiceNow API, the permission "ServiceNow API for SPFx" must be approved by SharePoint admin first. 
+
+```
+$requests = m365 spo serviceprincipal permissionrequest list --query "[?starts_with(ResourceId, 'ServiceNow API for SPFx')]" | ConvertFrom-Json
+if ($requests)
+{
+  $requests | % {
+    Write-Host "Approving request [$($_.Resource)] [$($_.Id)]..."    
+    m365 spo serviceprincipal permissionrequest approve --id $_.Id
+  }
+}
+```
 ## Add code to call ServiceNow API
+The code snippet below make a HTTP GET request to the service-now instance's incident Table API endpoint to fetch 5 incidents with a JWT Bearer Access Token. 
+The ServiceNow instance has been configured to validate the JWT token using the External OIDC Provider previously configured with Client ID match 'api://{ClientID}'
+```
+public render(): void {
+  const APP_ID_URL = 'api://{ClientID}}';
+  const SN_INSTANCE = '{instance}.service-now.com';
+  const API_ENDPOINT = `https://${SN_INSTANCE}/api/now/table/incident?sysparm_limit=5`
 
-
+  this.context.aadHttpClientFactory
+  .getClient(APP_ID_URL)
+  .then((client: AadHttpClient): void => {
+    client
+    .get(API_ENDPOINT, AadHttpClient.configurations.v1)
+    .then(async (response: HttpClientResponse): Promise<IncidentResponse> => {
+      return response.json();
+    })
+    .then((json: IncidentResponse): void => {      
+      ...
+    }).catch((e) => {
+      console.error('Failed to get aadclient.', e);
+    });  
+  }).catch((e) => {
+    console.error('Failed to retrieve data from servicenow.', e);
+  });
+}
+```
 
 # VS Code Extensions
 - Jupyter
