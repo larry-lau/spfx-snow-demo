@@ -7,6 +7,12 @@
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      {
+        "resource": "ServiceNow API for SPFx",
+        "scope": "access_as_user"
+      }
+    ],
     "developer": {
       "name": "",
       "websiteUrl": "",

@@ -1,0 +1,4 @@
+{
+  "APP_ID_URL": "api://{CLIENT_ID}",
+  "SN_INSTANCE": "https://{INSTANCE}.service-now.com"
+}
