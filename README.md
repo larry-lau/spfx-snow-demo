@@ -32,13 +32,14 @@ Steps:
     - **OIDC Provider**: Microsoft Entra OIDC v1
     - **OIDC Metadata URL**: https://login.microsoftonline.com/{tenantId}/.well-known/openid-configuration
     - **User Claim**: upn
+    - **Enable JTI claim verification**: unchecked
 
 > Important Note: OIDC Metadata URL must use the v1 endpoint. 
 
 ## Configure an OIDC Provider Configuration in ServiceNow
 Steps:
 1. Navigate to your ServiceNow instance https://{instance}.service-now.com/
-2. Navigate to System OAuth > OAuth application
+2. Navigate to System OAuth > Application Registies
 3. Click New and select "Configure an OIDC provider to verify ID tokens"
 4. Fill out the following fields
 - **Name**: ServiceNow API for SPFx
@@ -56,7 +57,7 @@ Steps:
 ## Enable CORS Rule 
 Since SPFx components run in browser in the sharepoint.com domain and ServiceNow API endpoint is different domain service-now.com, by default browsers will not allow SPFx components to make REST call to other domain unless the endpoint specifically allows Cross-Origin Resource Sharing (CORS). Follow these step to configure a CORS Rules to allow call from *.sharepoint.com. Feel free adjust the domain if you don't want any wildcard subdomain of sharepoint.com to call your ServiceNow instance. 
 
-1. Navigate to https://{instance}.service-now.com/sys_cors_rule.do
+1. Navigate to https://{instance}.service-now.com/sys_cors_rule_list.do
 2. Click New and fill out the following fields:
  - **Name**: Allow SPO on Table APIs
  - **REST API**: Table API [now/table]
