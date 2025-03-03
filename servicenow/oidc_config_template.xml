@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2025-03-03 17:03:57">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>GO Intranet OIDC Configuration</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>f73fb1f9c30022103f3d341d0501317b</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-03-03 17:03:57</sys_created_on>
+<sys_id>1bc506f1c34022103f3d341d0501311d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-03-03 17:03:57</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_cors_rule_5a0142fdc30022103f3d341d05013176</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_cors_rule"><sys_cors_rule action="INSERT_OR_UPDATE"><access_control_allow_credentials>true</access_control_allow_credentials><access_control_allow_headers>*</access_control_allow_headers><active>true</active><delete>false</delete><domain>https://*.sharepoint.com</domain><exposed_headers/><for_embeddables>false</for_embeddables><get>true</get><max_age>0</max_age><name>Allow SPO on Table APIs</name><patch>false</patch><post>true</post><put>false</put><resource_path/><rest_api>now/table</rest_api><sys_class_name>sys_cors_rule</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-03 16:44:50</sys_created_on><sys_id>5a0142fdc30022103f3d341d05013176</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Allow SPO on Table APIs</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_cors_rule_5a0142fdc30022103f3d341d05013176</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-03 16:44:50</sys_updated_on><use_resource_path>false</use_resource_path></sys_cors_rule></record_update>]]></payload>
+<payload_hash>-2144268323</payload_hash>
+<remote_update_set display_value="GO Intranet OIDC Configuration">1bc506f1c34022103f3d341d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-03-03 17:03:57</sys_created_on>
+<sys_id>17c506f1c34022103f3d341d0501311e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1955ce55f900000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-03-03 17:03:57</sys_updated_on>
+<table/>
+<target_name>Allow SPO on Table APIs</target_name>
+<type>CORS Rule</type>
+<update_domain>global</update_domain>
+<update_guid>27614abd6b00221025f0c79712328d6f</update_guid>
+<update_guid_history>27614abd6b00221025f0c79712328d6f:-2144268323</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>oidc_provider_configuration_6d8fb17dc30022103f3d341d05013179</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="oidc_provider_configuration"><oidc_provider_configuration action="INSERT_OR_UPDATE"><enable_jti_verification>false</enable_jti_verification><name>{OIDCProviderName}</name><oidc_config_cache_life_span>120</oidc_config_cache_life_span><oidc_url>https://login.microsoftonline.com/{TenantId}/.well-known/openid-configuration</oidc_url><sys_class_name>oidc_provider_configuration</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-03 16:38:00</sys_created_on><sys_id>6d8fb17dc30022103f3d341d05013179</sys_id><sys_mod_count>0</sys_mod_count><sys_name>{OIDCProviderName}</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>oidc_provider_configuration_6d8fb17dc30022103f3d341d05013179</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-03 16:38:00</sys_updated_on><user_claim>upn</user_claim><user_field>email</user_field></oidc_provider_configuration></record_update>]]></payload>
+<payload_hash>1967320423</payload_hash>
+<remote_update_set display_value="GO Intranet OIDC Configuration">1bc506f1c34022103f3d341d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-03-03 17:03:57</sys_created_on>
+<sys_id>53c506f1c34022103f3d341d0501311e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1955cdf1c600000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-03-03 17:03:57</sys_updated_on>
+<table/>
+<target_name>{OIDCProviderName}</target_name>
+<type>OIDC Provider Configuration</type>
+<update_domain>global</update_domain>
+<update_guid>dbdfb17df30022100df887c83c018080</update_guid>
+<update_guid_history>dbdfb17df30022100df887c83c018080:1967320423</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>oauth_oidc_entity_2b004e7dc30022103f3d341d050131aa</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="oauth_oidc_entity"><oauth_oidc_entity action="INSERT_OR_UPDATE"><access>public</access><access_token_lifespan>1800</access_token_lifespan><active>true</active><auth_code_lifespan>0</auth_code_lifespan><auth_url/><automatically_import_users>true</automatically_import_users><certificate_url/><client_id>api://{ClientId}</client_id><client_secret></client_secret><client_type/><client_uuid>a7004e7dc30022103f3d341d050131aa</client_uuid><clock_skew>300</clock_skew><code_challenge_method>S256</code_challenge_method><comments>This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)</comments><default_grant_type>password</default_grant_type><end_session_endpoint/><extend_refresh_token_expiry>false</extend_refresh_token_expiry><id_token_lifespan>0</id_token_lifespan><import_data_source display_value="Entra ID OIDC Data source">176cf9f5c30022103f3d341d050131c2</import_data_source><jwt_provider/><login_prompt>false</login_prompt><login_url/><logo_url/><message_signature_lifespan>0</message_signature_lifespan><mobile_client>false</mobile_client><name>{OIDCProviderConfigurationName}</name><oauth_api_script/><oidc_provider_configuration display_value="{OIDCProviderName}">6d8fb17dc30022103f3d341d05013179</oidc_provider_configuration><protocol_name/><provision_source>id_token</provision_source><public_client>false</public_client><redirect_url>https://dev260067.service-now.com/oauth_redirect.do</redirect_url><refresh_token_lifespan>8640000</refresh_token_lifespan><refresh_token_url/><restricted_binding>false</restricted_binding><revoke_token_url/><roles_for_imported_users>b05926fa0a0a0aa7000130023e0bde98,20803f15870033000e56d61e36cb0b7d,260c203a870033000e56d61e36cb0bbc</roles_for_imported_users><salt>0</salt><send_client_credentials_as>request_body_parameter</send_client_credentials_as><skip_authorize>false</skip_authorize><sys_class_name>oauth_oidc_entity</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-03 16:41:49</sys_created_on><sys_id>2b004e7dc30022103f3d341d050131aa</sys_id><sys_mod_count>0</sys_mod_count><sys_name>{OIDCProviderConfigurationName}</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>oauth_oidc_entity_2b004e7dc30022103f3d341d050131aa</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-03 16:41:49</sys_updated_on><token_url/><type>oauth_provider</type><update_time_interval>3600</update_time_interval><update_user_on_login>false</update_user_on_login><use_mutual_auth>false</use_mutual_auth><user/><user_info_data_source/></oauth_oidc_entity></record_update>]]></payload>
+<payload_hash>-777847158</payload_hash>
+<remote_update_set display_value="GO Intranet OIDC Configuration">1bc506f1c34022103f3d341d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-03-03 17:03:57</sys_created_on>
+<sys_id>9fc506f1c34022103f3d341d0501311d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1955ce29bc80000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-03-03 17:03:57</sys_updated_on>
+<table/>
+<target_name>{OIDCProviderConfigurationName}</target_name>
+<type>OAuth OIDC Entity</type>
+<update_domain>global</update_domain>
+<update_guid>5bb0cabd330022103213f7a75f8daa49</update_guid>
+<update_guid_history>5bb0cabd330022103213f7a75f8daa49:-777847158</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>oauth_entity_profile_d3b0cabdc30022103f3d341d05013145</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="oauth_entity_profile"><oauth_entity_profile action="INSERT_OR_UPDATE"><default>true</default><grant_type>password</grant_type><jwt_provider/><name>{OIDCProviderConfigurationName} default_profile</name><oauth_entity display_value="{OIDCProviderConfigurationName}">2b004e7dc30022103f3d341d050131aa</oauth_entity><saml2_assertion_producer/><sys_class_name>oauth_entity_profile</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-03 16:41:49</sys_created_on><sys_id>d3b0cabdc30022103f3d341d05013145</sys_id><sys_mod_count>0</sys_mod_count><sys_name>{OIDCProviderConfigurationName} default_profile</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>oauth_entity_profile_d3b0cabdc30022103f3d341d05013145</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-03 16:41:49</sys_updated_on></oauth_entity_profile></record_update>]]></payload>
+<payload_hash>1016146146</payload_hash>
+<remote_update_set display_value="GO Intranet OIDC Configuration">1bc506f1c34022103f3d341d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-03-03 17:03:57</sys_created_on>
+<sys_id>dbc506f1c34022103f3d341d0501311d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1955ce29bad0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-03-03 17:03:57</sys_updated_on>
+<table/>
+<target_name>{OIDCProviderConfigurationName} default_profile</target_name>
+<type>OAuth Entity Profile</type>
+<update_domain>global</update_domain>
+<update_guid>5bb0cabd1c002210700b6ce7fa93c947</update_guid>
+<update_guid_history>5bb0cabd1c002210700b6ce7fa93c947:1016146146</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>

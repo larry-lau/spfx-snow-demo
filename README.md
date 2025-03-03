@@ -26,7 +26,51 @@ Steps:
 > Important Note: accessTokenAcceptedVersion must be set to null (default to v1) since ServiceNow doesn't seem to work with v2 as of 2024-01-26 in Vancouver release.
 
 # ServiceNow Setup
-## Configure an OIDC Provider Configuration in ServiceNow
+Since manual OIDC configuration involve many steps and it can error-prone. We offer another method using update set to complete most of the configuration steps. ServiceNow update set, is xml file containing all the configuration details and can be imported. 
+
+## Method 1: Import update sets
+Since the environment specific values are baked in the update set xml. A handy script has been prepared to swap out environment specific value such as TenantID, ClientID...etc. 
+
+### Generate a update set xml 
+Run this script to generate a update set xml specific to your M365 tenant
+```
+.\servicenow\Generate-OIDCConfig.ps1 -TenantId {tenantId} -ClientId {clientId}
+```
+
+Provider and configuration name can be changed and they are optional with these default values
+```
+$OIDCProviderName = "Microsoft Entra OIDC v1"
+$OIDCProviderConfigurationName = "ServiceNow API for GO"
+```
+
+> The update set XML by the name oidc_config_{tenantId}.xml will be generated in the servicenow folder
+> The update set XML does not contain secret is safe to share. 
+
+### Import Data source
+1. Navigate to https://{instance}.service-now.com/now/nav/ui/classic/params/target/sys_remote_update_set_list.do
+2. Click Import Update Set from XML
+3. Choose .\servicenow\datasource.xml to upload and click Upload button
+4. Click Preview
+5. Click Commit
+
+### Import OIDC Configuration
+1. Navigate to https://{instance}.service-now.com/now/nav/ui/classic/params/target/sys_remote_update_set_list.do
+2. Click Import Update Set from XML
+3. Choose .\servicenow\oidc_config_{tenant_id}.xml to upload and click Upload button
+4. Click Preview
+5. Click Commit
+
+### Set Client Secret
+> Since the update set xml does not contain client secret, update it after the update set is imported
+
+1. Navigate to System OAuth > Application Registies
+2. Open the application "ServiceNow API for GO"
+3. Update the Client Secret field
+
+## Method 2: Manual configuration
+Follow this steps if you prefer to configure manually
+
+### Configure an OIDC Provider Configuration in ServiceNow
 1. Navigate to https://{instance}.service-now.com/oidc_provider_configuration_list.do
 2. Click New and Fill out the following fields:
     - **OIDC Provider**: Microsoft Entra OIDC v1
@@ -35,8 +79,9 @@ Steps:
     - **Enable JTI claim verification**: unchecked
 
 > Important Note: OIDC Metadata URL must use the v1 endpoint. 
+> Entra ID does not return jti claim. Disable JTI claim verification. See https://techcommunity.microsoft.com/discussions/microsoft-entra/azure-ad-token-missing-jti-claim/2210776
 
-## Configure an OIDC Provider Configuration in ServiceNow
+### Configure an OIDC Provider Configuration in ServiceNow
 Steps:
 1. Navigate to your ServiceNow instance https://{instance}.service-now.com/
 2. Navigate to System OAuth > Application Registies
@@ -48,14 +93,47 @@ Steps:
 - **OAuth OIDC Provider Configuration**: Microsoft Entra OIDC v1 <Created in previous step>
 - **Comments**: This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)
 - Under User Provisioning Tab
+    > Note: This is optional if your ServiceNow is configured to import /synchronize users from Entra ID. If your ServiceNow does not have OIDC data source.
     - **Automatically provision users**: Checked
     - **ID Token Datasource**: Azure AD Example
+      - If your instance does not have a preset datasource, you will need to create one.  
     - **User roles applied to provisioned users**: user, sn_incident_read, sn_incident_write
+    
+  > Create OIDC Data source: https://www.servicenow.com/docs/bundle/vancouver-integrate-applications/page/administer/import-sets/task/create-oidc-type-data-source.html
 
 > Important Note: Client ID must match the aud in jwt token 
 
+## Create OIDC ID Token Datasource
+Consider importing a data source using .\servicenow\datasource.xml update set
+
+1. Navigate to All > System Import Sets > Administration > Data Sources > New
+2. Fill out the following fields
+    - Name: Entra ID
+    - Import set table label: oidc_entra_id_import
+    - Import set table name: [Auto filled]
+    - Type: OIDC
+    - Use Batch Import: uncheck
+3. Add a Transforms and Fill out the following fields
+    - Name: Entra ID Transform Map    
+    - Source table: oidc_entra_id_import
+    - Target table: User [sys_user] 
+    - Active: true
+    - Run script: false    
+    - Run business rules: true
+    - Enforce mandatory fields: false
+    - Copy empty fields: false
+    - Create new record on empty coalesce fields: false
+4. Create field maps
+      > Note: Since the oidc_entra_id_import Table will be created on the first incoming API request, the fields doe not exist. You only be able to create the following field mapping after the table is created. 
+    - upn > User ID
+    - upn > Email
+    - family_name > Last name
+    - given_name > First name
+
 ## Enable CORS Rule 
 Since SPFx components run in browser in the sharepoint.com domain and ServiceNow API endpoint is different domain service-now.com, by default browsers will not allow SPFx components to make REST call to other domain unless the endpoint specifically allows Cross-Origin Resource Sharing (CORS). Follow these step to configure a CORS Rules to allow call from *.sharepoint.com. Feel free adjust the domain if you don't want any wildcard subdomain of sharepoint.com to call your ServiceNow instance. 
+
+> Note: if you want to use other Service API, you will need to adjust accordingly. 
 
 1. Navigate to https://{instance}.service-now.com/sys_cors_rule_list.do
 2. Click New and fill out the following fields:

@@ -32,9 +32,9 @@ $installedApp = $(m365 spo app instance list --siteUrl $siteUrl --output json --
 if ($uninstall)
 {
     Write-Host "Uninstalling app completely from $siteUrl..."
-    m365 spo app uninstall --id $solutionId --siteUrl $siteUrl --appCatalogScope sitecollection --confirm
-    m365 spo app retract --id $solutionId --appCatalogUrl $siteUrl --appCatalogScope sitecollection --confirm
-    m365 spo app remove --id $solutionId --appCatalogUrl $siteUrl --appCatalogScope sitecollection --confirm
+    m365 spo app uninstall --id $solutionId --siteUrl $siteUrl --appCatalogScope sitecollection --force
+    m365 spo app retract --id $solutionId --appCatalogUrl $siteUrl --appCatalogScope sitecollection --force
+    m365 spo app remove --id $solutionId --appCatalogUrl $siteUrl --appCatalogScope sitecollection --force
 }
 
 #if uninstalll stop right here, don't install it back
