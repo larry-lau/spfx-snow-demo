@@ -50,22 +50,16 @@ $OIDCProviderConfigurationName = "ServiceNow API for GO"
 1. Navigate to https://{instance}.service-now.com/now/nav/ui/classic/params/target/sys_remote_update_set_list.do
 2. Click Import Update Set from XML
 3. Choose .\servicenow\datasource.xml to upload and click Upload button
-4. Click Preview
-5. Click Commit
+4. Click on the imported update set **GO Intranet OIDC Data source**
+5. Click Preview Update Set
+6. Click Commit Update Set
 
 ### Import OIDC Configuration
 1. Navigate to https://{instance}.service-now.com/now/nav/ui/classic/params/target/sys_remote_update_set_list.do
 2. Click Import Update Set from XML
 3. Choose .\servicenow\oidc_config_{tenant_id}.xml to upload and click Upload button
-4. Click Preview
-5. Click Commit
-
-### Set Client Secret
-> Since the update set xml does not contain client secret, update it after the update set is imported
-
-1. Navigate to System OAuth > Application Registies
-2. Open the application "ServiceNow API for GO"
-3. Update the Client Secret field
+4. Click Preview Update Set
+5. Click Commit Update Set
 
 ## Method 2: Manual configuration
 Follow this steps if you prefer to configure manually
@@ -87,17 +81,17 @@ Steps:
 2. Navigate to System OAuth > Application Registies
 3. Click New and select "Configure an OIDC provider to verify ID tokens"
 4. Fill out the following fields
-- **Name**: ServiceNow API for SPFx
-- **Client ID**: <Use Audience value in .env>
-- **Client Secret**: <See .env>
-- **OAuth OIDC Provider Configuration**: Microsoft Entra OIDC v1 <Created in previous step>
-- **Comments**: This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)
-- Under User Provisioning Tab
-    > Note: This is optional if your ServiceNow is configured to import /synchronize users from Entra ID. If your ServiceNow does not have OIDC data source.
-    - **Automatically provision users**: Checked
-    - **ID Token Datasource**: Azure AD Example
-      - If your instance does not have a preset datasource, you will need to create one.  
-    - **User roles applied to provisioned users**: user, sn_incident_read, sn_incident_write
+    - **Name**: ServiceNow API for SPFx
+    - **Client ID**: <Use Audience value in .env>
+    - **Client Secret**: <Optional>
+    - **OAuth OIDC Provider Configuration**: Microsoft Entra OIDC v1 <Created in previous step>
+    - **Comments**: This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)
+    - Under User Provisioning Tab
+      > Note: This is optional if your ServiceNow is already configured to import /synchronize users from Entra ID. If your ServiceNow does not have  data source suitable for OIDC ID Token, you will need to create one.
+      - **Automatically provision users**: Checked
+      - **ID Token Datasource**: Azure AD Example 
+        - You can use a preset datasource such as Azure AD Example.
+      - **User roles applied to provisioned users**: user, sn_incident_read, sn_incident_write
     
   > Create OIDC Data source: https://www.servicenow.com/docs/bundle/vancouver-integrate-applications/page/administer/import-sets/task/create-oidc-type-data-source.html
 
@@ -133,14 +127,14 @@ Consider importing a data source using .\servicenow\datasource.xml update set
 ## Enable CORS Rule 
 Since SPFx components run in browser in the sharepoint.com domain and ServiceNow API endpoint is different domain service-now.com, by default browsers will not allow SPFx components to make REST call to other domain unless the endpoint specifically allows Cross-Origin Resource Sharing (CORS). Follow these step to configure a CORS Rules to allow call from *.sharepoint.com. Feel free adjust the domain if you don't want any wildcard subdomain of sharepoint.com to call your ServiceNow instance. 
 
-> Note: if you want to use other Service API, you will need to adjust accordingly. 
-
 1. Navigate to https://{instance}.service-now.com/sys_cors_rule_list.do
 2. Click New and fill out the following fields:
- - **Name**: Allow SPO on Table APIs
- - **REST API**: Table API [now/table]
- - **Domain**: https://*.sharepoint.com
- - **HTTP Methods**: GET, POST
+    - **Name**: Allow SPO on Table APIs
+    - **REST API**: Table API [now/table]
+    - **Domain**: https://*.sharepoint.com
+    - **HTTP Methods**: GET, POST
+
+> Note: if you want to use other REST API, you will need to adjust accordingly. 
 
 # Setting up local Jupyter to test out integration
 You can do local Python development on Windows using VS Code. 
