@@ -58,6 +58,7 @@ $OIDCProviderConfigurationName = "ServiceNow API for GO"
 1. Navigate to https://{instance}.service-now.com/now/nav/ui/classic/params/target/sys_remote_update_set_list.do
 2. Click Import Update Set from XML
 3. Choose .\servicenow\oidc_config_{tenant_id}.xml to upload and click Upload button
+4. Click on the imported update set **GO Intranet OIDC Configuration**
 4. Click Preview Update Set
 5. Click Commit Update Set
 
