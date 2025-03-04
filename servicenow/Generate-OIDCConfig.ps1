@@ -7,8 +7,8 @@ Param (
     [string] $OIDCProviderName = "Microsoft Entra OIDC v1",
     [string] $OIDCProviderConfigurationName = "ServiceNow API for GO"
 )
-
-$oidcFileName = "$PSScriptRoot\oidc_config_$TenantId.xml"
+$fileId = $TenantId.Split("-")[0]
+$oidcFileName = "$PSScriptRoot\go_oidc_config_$fileId.xml"
 $template = Get-Content "$PSScriptRoot\oidc_config_template.xml"
 $oidcConfig = $template -replace "{TenantId}", $TenantId `
     -replace "{ClientId}", $ClientId `

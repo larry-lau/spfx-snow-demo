@@ -43,7 +43,7 @@ $OIDCProviderName = "Microsoft Entra OIDC v1"
 $OIDCProviderConfigurationName = "ServiceNow API for GO"
 ```
 
-> The update set XML by the name oidc_config_{tenantId}.xml will be generated in the servicenow folder
+> The update set XML by the name go_oidc_config_{tenantId}.xml will be generated in the servicenow folder
 > The update set XML does not contain secret is safe to share. 
 
 ### Import Data source
@@ -57,7 +57,7 @@ $OIDCProviderConfigurationName = "ServiceNow API for GO"
 ### Import OIDC Configuration
 1. Navigate to https://{instance}.service-now.com/now/nav/ui/classic/params/target/sys_remote_update_set_list.do
 2. Click Import Update Set from XML
-3. Choose .\servicenow\oidc_config_{tenant_id}.xml to upload and click Upload button
+3. Choose .\servicenow\go_oidc_config_{tenant_id}.xml to upload and click Upload button
 4. Click on the imported update set **GO Intranet OIDC Configuration**
 4. Click Preview Update Set
 5. Click Commit Update Set
@@ -83,8 +83,8 @@ Steps:
 3. Click New and select "Configure an OIDC provider to verify ID tokens"
 4. Fill out the following fields
     - **Name**: ServiceNow API for SPFx
-    - **Client ID**: <Use Audience value in .env>
-    - **Client Secret**: <Optional>
+    - **Client ID**: (Use Audience value in .env)
+    - **Client Secret**: (Optional)
     - **OAuth OIDC Provider Configuration**: Microsoft Entra OIDC v1 <Created in previous step>
     - **Comments**: This OAuth OIDC entity is created to authenticate inbound REST API calls using JWT token from external provider (Microsoft Entra)
     - Under User Provisioning Tab
@@ -92,6 +92,7 @@ Steps:
       - **Automatically provision users**: Checked
       - **ID Token Datasource**: Azure AD Example 
         - You can use a preset datasource such as Azure AD Example.
+        - If it is missing, follow the [Create OIDC ID Token Datasource](#create-oidc-id-token-datasource)
       - **User roles applied to provisioned users**: user, sn_incident_read, sn_incident_write
     
   > Create OIDC Data source: https://www.servicenow.com/docs/bundle/vancouver-integrate-applications/page/administer/import-sets/task/create-oidc-type-data-source.html
@@ -99,7 +100,7 @@ Steps:
 > Important Note: Client ID must match the aud in jwt token 
 
 ## Create OIDC ID Token Datasource
-Consider importing a data source using .\servicenow\datasource.xml update set
+> Consider importing a data source using .\servicenow\datasource.xml update set. 
 
 1. Navigate to All > System Import Sets > Administration > Data Sources > New
 2. Fill out the following fields
@@ -119,7 +120,7 @@ Consider importing a data source using .\servicenow\datasource.xml update set
     - Copy empty fields: false
     - Create new record on empty coalesce fields: false
 4. Create field maps
-      > Note: Since the oidc_entra_id_import Table will be created on the first incoming API request, the fields doe not exist. You only be able to create the following field mapping after the table is created. 
+      > Note: Since the oidc_entra_id_import Table will be created on the first incoming API request, the fields doe not exist. You will only be able to create the following field mapping after the table is created. 
     - upn > User ID
     - upn > Email
     - family_name > Last name

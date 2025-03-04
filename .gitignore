@@ -138,3 +138,5 @@ obj
 
 # Styles Generated Code
 *.scss.ts
+
+go_oidc_config_*
